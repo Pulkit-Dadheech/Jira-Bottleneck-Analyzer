@@ -1,8 +1,6 @@
 import React from 'react'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
 import 'boxicons/css/boxicons.min.css'
-import { useSignIn } from '@clerk/clerk-react'
-import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
     // Function to toggle the mobile menu
@@ -48,21 +46,14 @@ const Header = () => {
       {/* Mobile Menu - Hidden by default*/}
       <div id='mobileMenu' className='hidden fixed top-16 bottom-0 right-0 left-0 p-5 md:hidden z-40 bg-black bg-opacity-70 backdrop:blur-md'>
         <nav className='flex flex-col gap-6 items-center'>
-          {/* <a href='#' className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>
-              Company 
-          </a>
-          <a href='#' className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>
-              Features 
-          </a>
-          <a href='#' className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>
-              Resources
-          </a>
-          <a href='#' className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>
-              Docs 
-          </a> */}
+          {/* Navigation links for mobile */}
+          {/* <a href="#" className="text-base tracking-wider hover:text-gray-300">Company</a>
+          <a href="#" className="text-base tracking-wider hover:text-gray-300">Features</a>
+          <a href="#" className="text-base tracking-wider hover:text-gray-300">Resources</a>
+          <a href="#" className="text-base tracking-wider hover:text-gray-300">Docs</a> */}
           {/* Clerk Auth Buttons for mobile */}
           <SignedOut>
-            <SignInButton mode="modal" afterSignInUrl="/dashboard">
+            <SignInButton mode="modal" redirectUrl="/dashboard">
                 <button className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium border-none transition-all-500 hover:bg-white cursor-pointer'>
                     SIGN IN
                 </button>

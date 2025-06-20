@@ -3,7 +3,7 @@ import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
 import DashboardContent from './DashboardContent';
 import 'boxicons/css/boxicons.min.css';
-import { useSidebar } from '../context/SidebarContext';
+import { useSidebar } from '../context/SidebarContext.jsx';
 
 const Dashboard = () => {
   const { activeSection } = useSidebar('dashboard');
