@@ -1,0 +1,4 @@
+a[href*="spline.design"], 
+.spline-watermark {
+  display: none !important;
+}

@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import './App.css'
+import Dashboard from './components/Dashboard'
+import HomePage from './components/HomePage'
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className='text-3xl font-bold underline'>
-        hello world
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </>
   )
 }

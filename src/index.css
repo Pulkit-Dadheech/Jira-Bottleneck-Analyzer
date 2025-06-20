@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+  body {
+    @apply font-sans overflow-x-hidden h-screen  bg-black text-white;
+  }
+  .light body {
+    @apply bg-white text-black;
+  }
+}
