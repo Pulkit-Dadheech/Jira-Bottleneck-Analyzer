@@ -1,8 +1,20 @@
-import React from 'react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import React, { useEffect } from 'react'
+import {
+  SignedIn, SignedOut, SignInButton, SignOutButton, UserButton, useUser
+} from '@clerk/clerk-react'
+import { useNavigate } from 'react-router-dom'
 import 'boxicons/css/boxicons.min.css'
 
 const Header = () => {
+    // Clerk user state and navigation for post-sign-in redirect
+    const { isLoaded, isSignedIn } = useUser()
+    const navigate = useNavigate()
+    useEffect(() => {
+      if (isLoaded && isSignedIn) {
+        navigate('/dashboard')
+      }
+    }, [isLoaded, isSignedIn, navigate])
+
     // Function to toggle the mobile menu
     const toggleMobileMenu = () => {
         const mobileMenu = document.getElementById('mobileMenu');
@@ -23,10 +35,17 @@ const Header = () => {
         <h1 className='text-2xl md:text-3xl lg:text-4xl font-light m-0'>ANALYZER</h1>
       </div>
 
+      {/* Desktop navigation links */}
+      {/* <nav className='hidden md:flex items-center gap-8'>
+        <a href='#company' className='text-base tracking-wider transition-colors hover:text-gray-300'>Company</a>
+        <a href='#features' className='text-base tracking-wider transition-colors hover:text-gray-300'>Features</a>
+        <a href='#resources' className='text-base tracking-wider transition-colors hover:text-gray-300'>Resources</a>
+        <a href='#docs' className='text-base tracking-wider transition-colors hover:text-gray-300'>Docs</a>
+      </nav> */}
+
       {/* Desktop auth buttons */}
-      <div className="hidden md:block z-50">
+      <div className="hidden md:flex items-center gap-4 z-50">
         <SignedOut>
-          {/* afterSignInUrl goes on the SignInButton component, not the <button> */}
           <SignInButton mode="modal" redirectUrl="/dashboard">
             <button className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium hover:bg-white transition'>
               <i className='bx bx-log-in'></i> SIGN IN
@@ -35,6 +54,7 @@ const Header = () => {
         </SignedOut>
         <SignedIn>
           <UserButton />
+          <SignOutButton redirectUrl="/" />
         </SignedIn>
       </div>
 
@@ -46,21 +66,13 @@ const Header = () => {
       {/* Mobile Menu - Hidden by default*/}
       <div id='mobileMenu' className='hidden fixed top-16 bottom-0 right-0 left-0 p-5 md:hidden z-40 bg-black bg-opacity-70 backdrop:blur-md'>
         <nav className='flex flex-col gap-6 items-center'>
-          {/* Navigation links for mobile */}
-          {/* <a href="#" className="text-base tracking-wider hover:text-gray-300">Company</a>
-          <a href="#" className="text-base tracking-wider hover:text-gray-300">Features</a>
-          <a href="#" className="text-base tracking-wider hover:text-gray-300">Resources</a>
-          <a href="#" className="text-base tracking-wider hover:text-gray-300">Docs</a> */}
           {/* Clerk Auth Buttons for mobile */}
           <SignedOut>
-            <SignInButton mode="modal" redirectUrl="/dashboard">
-                <button className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium border-none transition-all-500 hover:bg-white cursor-pointer'>
-                    SIGN IN
-                </button>
-            </SignInButton>
+            <SignInButton mode="modal" redirectUrl="/dashboard" />
           </SignedOut>
           <SignedIn>
-              <UserButton />
+            <UserButton />
+            <SignOutButton redirectUrl="/" />
           </SignedIn>
         </nav>
       </div>
