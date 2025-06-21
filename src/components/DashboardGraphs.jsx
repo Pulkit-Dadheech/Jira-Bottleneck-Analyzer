@@ -22,26 +22,26 @@ export default function DashboardGraphs() {
   }, [])
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-        <h2 className="text-xl font-semibold mb-4">Case Durations (min)</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={caseData}>
-            <XAxis dataKey="case_id" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="total_minutes" fill="#8884d8" />
+    <div className="min-w-[700px] grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="p-4 bg-black border-[0.1px] border-gray-600 rounded-xl shadow-lg flex flex-col items-center">
+        <h2 className="text-xl font-semibold mb-4 text-indigo-400">Case Durations (min)</h2>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={caseData} barSize={28} style={{ borderRadius: '12px' }}>
+            <XAxis dataKey="case_id" tick={{ fill: '#c7d2fe', fontSize: 12 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: '#c7d2fe', fontSize: 12 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ background: '#222', border: 'none', borderRadius: 8, color: '#fff' }} labelStyle={{ color: '#a5b4fc' }} />
+            <Bar dataKey="total_minutes" fill="#6366f1" radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-        <h2 className="text-xl font-semibold mb-4">Step Durations (min)</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={stepData}>
-            <XAxis dataKey="step" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="average_minutes" fill="#82ca9d" />
+      <div className="p-4 bg-black border-[0.1px] border-gray-600 rounded-xl shadow-lg flex flex-col items-center">
+        <h2 className="text-xl font-semibold mb-4 text-indigo-400">Step Durations (min)</h2>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={stepData} barSize={28} style={{ borderRadius: '12px' }}>
+            <XAxis dataKey="step" tick={{ fill: '#c7d2fe', fontSize: 12 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: '#c7d2fe', fontSize: 12 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ background: '#222', border: 'none', borderRadius: 8, color: '#fff' }} labelStyle={{ color: '#a5b4fc' }} />
+            <Bar dataKey="average_minutes" fill="#10b981" radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -6,7 +6,7 @@ const Sidebar = (props) => {
   const { activeSection, setActiveSection } = useSidebar(activeSectionList[0]);
 
   return (
-    <aside className="min-w-max min-h-full bg-black border-r border-slate-200 flex flex-col py-8 px-3 shadow-md">
+    <aside className=" min-h-full bg-black flex flex-col py-8 px-3 shadow-lg">
       {/* Logo and title */}
       <div className="flex items-center gap-3 mb-10 px-2">
         <span className="text-xl"></span>

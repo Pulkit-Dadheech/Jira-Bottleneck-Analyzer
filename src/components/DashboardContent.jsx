@@ -6,7 +6,7 @@ const DashboardContent = () => {
   const [csvUploaded, setCsvUploaded] = useState(false)
 
   return (
-    <div className="mx-auto h-full">
+    <div className="mx-auto h-full overflow-x-auto">
       {!csvUploaded ? (
         <div className='flex items-center h-full justify-center'>
         <CsvUpload onUploadSuccess={() => setCsvUploaded(true)} />

@@ -28,7 +28,8 @@ const Header = () => {
         }
     }
   return (
-    <header className='flex justify-between items-center py-4 px-4 lg:px-20 h-14'>
+    // make element 3d and add shadow of white color
+    <header className='flex justify-between items-center py-4 px-4 lg:px-20 border-b-[0.1px] border-gray-600'>
       {/* Example icon via boxicons */}
       <div className="flex items-center gap-2">
         <i className='bx bx-analyse text-2xl'></i>

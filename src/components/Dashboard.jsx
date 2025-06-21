@@ -8,7 +8,7 @@ import { useSidebar } from '../context/SidebarContext';
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const {activeSetion} = useSidebar('dashboard');
+  const {activeSection} = useSidebar('dashboard');
 
   return (
     <div className="flex flex-col h-screen text-white overflow-hidden">
@@ -25,9 +25,9 @@ const Dashboard = () => {
           />
         </aside>
         {/* Main content area */}
-        <main className="flex-1 overflow-auto bg-blue-100" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
-          {activeSetion == 'dashboard' && <DashboardContent />}
-        </main>
+        <div className="flex-1 overflow-auto bg-gray-900 p-5" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
+          {activeSection === 'dashboard' && <DashboardContent />}
+        </div>
       </div>
       {/* Mobile sidebar toggle and drawer remain unchanged */}
       <div className="md:hidden fixed top-4 left-4 z-50">
