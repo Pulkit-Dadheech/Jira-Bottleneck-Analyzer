@@ -6,14 +6,14 @@ const Sidebar = (props) => {
   const { activeSection, setActiveSection } = useSidebar(activeSectionList[0]);
 
   return (
-    <aside className="w-60 min-h-screen bg-white/90 border-r border-slate-200 flex flex-col py-8 px-3 shadow-md">
+    <aside className="min-w-max min-h-full bg-black border-r border-slate-200 flex flex-col py-8 px-3 shadow-md">
       {/* Logo and title */}
       <div className="flex items-center gap-3 mb-10 px-2">
         <span className="text-xl"></span>
-        <span className="text-xl font-bold text-gray-500">{titleName}</span>
+        <span className="text-xl font-bold text-gray-300">{titleName}</span>
       </div>
       {/* All Components */}
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-col gap-4">
         {sectionNames.map((sectionName, index) => (
           <SidebarButton
             key={index}

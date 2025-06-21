@@ -28,11 +28,11 @@ const Header = () => {
         }
     }
   return (
-    <header className='flex justify-between items-center py-4 px-4 lg:px-20'>
+    <header className='flex justify-between items-center py-4 px-4 lg:px-20 h-14'>
       {/* Example icon via boxicons */}
       <div className="flex items-center gap-2">
-        <i className='bx bx-analyse text-3xl'></i>
-        <h1 className='text-2xl md:text-3xl lg:text-4xl font-light m-0'>ANALYZER</h1>
+        <i className='bx bx-analyse text-2xl'></i>
+        <h1 className='text-2xl md:text-2xl lg:text-3xl font-light m-0'>ANALYZER</h1>
       </div>
 
       {/* Desktop navigation links */}
