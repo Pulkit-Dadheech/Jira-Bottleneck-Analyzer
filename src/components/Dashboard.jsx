@@ -5,10 +5,17 @@ import DashboardContent from './DashboardContent';
 import 'boxicons/css/boxicons.min.css';
 import '../index.css';
 import { useSidebar } from '../context/SidebarContext';
+import CasesPage from './CasesPage';
+import StepsPage from './StepsPage';
+import PathsPage from './PathsPage';
+import DelaysPage from './DelaysPage';
+import ViolationsPage from './ViolationsPage';
+
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const {activeSection} = useSidebar('dashboard');
+  // Layout does not set activeSection; each page sets its own section
+  const { activeSection } = useSidebar('overview');
 
   return (
     <div className="flex flex-col h-screen text-white overflow-hidden">
@@ -19,14 +26,26 @@ const Dashboard = () => {
         <aside className="hidden md:block w-56 h-full overflow-auto">
           <Sidebar
             titleName="Dashboard"
-            activeSectionList={['dashboard']}
-            LogoComponents={[() => <i className="bx bx-dashboard"></i>]}
-            sectionNames={['Overview']}
+            activeSectionList={['overview','cases','steps','paths','delays','violations']}
+            LogoComponents={[
+              () => <i className="bx bx-home-alt-2"></i>,
+              () => <i className="bx bx-list-ol"></i>,
+              () => <i className="bx bx-timer"></i>,
+              () => <i className="bx bx-merge"></i>,
+              () => <i className="bx bx-user"></i>,
+              () => <i className="bx bx-slash-square"></i>
+            ]}
+            sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
           />
         </aside>
         {/* Main content area */}
         <div className="flex-1 overflow-auto bg-gray-900 p-5" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
-          {activeSection === 'dashboard' && <DashboardContent />}
+          {activeSection === 'overview' && <DashboardContent />}
+          {activeSection === 'cases' && <CasesPage/>}
+          {activeSection === 'steps' && <StepsPage/>}
+          {activeSection === 'paths' && <PathsPage/>}
+          {activeSection === 'delays' && <DelaysPage/>}
+          {activeSection === 'violations' && <ViolationsPage/>}
         </div>
       </div>
       {/* Mobile sidebar toggle and drawer remain unchanged */}
@@ -43,9 +62,16 @@ const Dashboard = () => {
             </button>
             <Sidebar
               titleName="Dashboard"
-              activeSectionList={['dashboard']}
-              LogoComponents={[() => <i className="bx bx-dashboard"></i>]}
-              sectionNames={['Overview']}
+              activeSectionList={['overview','cases','steps','paths','delays','violations']}
+              LogoComponents={[
+                () => <i className="bx bx-home-alt-2"></i>,
+                () => <i className="bx bx-list-ol"></i>,
+                () => <i className="bx bx-timer"></i>,
+                () => <i className="bx bx-merge"></i>,
+                () => <i className="bx bx-user"></i>,
+                () => <i className="bx bx-slash-square"></i>
+              ]}
+              sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
             />
           </div>
         </div>
