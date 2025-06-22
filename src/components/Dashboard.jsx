@@ -10,12 +10,16 @@ import StepsPage from './StepsPage';
 import PathsPage from './PathsPage';
 import DelaysPage from './DelaysPage';
 import ViolationsPage from './ViolationsPage';
+import CsvUpload from './CsvUpload'; // Import the CsvUpload component
 
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // Layout does not set activeSection; each page sets its own section
   const { activeSection } = useSidebar('overview');
+  const [csvUploaded, setCsvUploaded] = useState(false);
+
+  // Only allow navigation if CSV is uploaded
+  const navDisabled = !csvUploaded;
 
   return (
     <div className="flex flex-col h-screen text-white overflow-hidden">
@@ -36,16 +40,25 @@ const Dashboard = () => {
               () => <i className="bx bx-slash-square"></i>
             ]}
             sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
+            navDisabled={navDisabled}
           />
         </aside>
         {/* Main content area */}
         <div className="flex-1 overflow-auto bg-gray-900 p-5" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
-          {activeSection === 'overview' && <DashboardContent />}
-          {activeSection === 'cases' && <CasesPage/>}
-          {activeSection === 'steps' && <StepsPage/>}
-          {activeSection === 'paths' && <PathsPage/>}
-          {activeSection === 'delays' && <DelaysPage/>}
-          {activeSection === 'violations' && <ViolationsPage/>}
+          {/* Only show CSV upload in overview, and only if not uploaded */}
+          {activeSection === 'overview' && !csvUploaded && (
+            <div className='flex items-center h-full justify-center'>
+              <CsvUpload onUploadSuccess={() => setCsvUploaded(true)} />
+            </div>
+          )}
+          {/* Only show overview graphs if CSV is uploaded and only in overview */}
+          {activeSection === 'overview' && csvUploaded && <DashboardContent />}
+          {/* Only show other pages if CSV is uploaded and not in overview */}
+          {activeSection === 'cases' && csvUploaded && <CasesPage/>}
+          {activeSection === 'steps' && csvUploaded && <StepsPage/>}
+          {activeSection === 'paths' && csvUploaded && <PathsPage/>}
+          {activeSection === 'delays' && csvUploaded && <DelaysPage/>}
+          {activeSection === 'violations' && csvUploaded && <ViolationsPage/>}
         </div>
       </div>
       {/* Mobile sidebar toggle and drawer remain unchanged */}
@@ -72,6 +85,7 @@ const Dashboard = () => {
                 () => <i className="bx bx-slash-square"></i>
               ]}
               sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
+              navDisabled={navDisabled}
             />
           </div>
         </div>

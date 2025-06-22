@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSidebar } from "../../context/SidebarContext";
 
 const SidebarButton = (props) => {
-    const { sectionName, currentSection,LogoComponent } = props;
+    const { sectionName, currentSection,LogoComponent, navDisabled } = props;
     const {activeSection, setActiveSection} = useSidebar();
     const navigate = useNavigate();
     return (
@@ -12,8 +12,9 @@ const SidebarButton = (props) => {
             activeSection === currentSection
                 ? 'border-l-4 border-gray-400 bg-slate-800 text-gray-300'
                 : 'hover:cursor-pointer  text-gray-500'
-            }`}
-            onClick={() => { setActiveSection(currentSection); navigate(`/dashboard/${currentSection}`); }}
+            } ${navDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            onClick={() => { if (!navDisabled) { setActiveSection(currentSection); navigate(`/dashboard/${currentSection}`); } }}
+            disabled={navDisabled}
         >
             {LogoComponent && <span><LogoComponent/></span>}
             <span>{sectionName}</span>

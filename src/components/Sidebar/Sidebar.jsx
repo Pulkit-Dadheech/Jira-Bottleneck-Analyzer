@@ -20,6 +20,7 @@ const Sidebar = (props) => {
             sectionName={sectionName}
             currentSection={activeSectionList[index]}
             LogoComponent={LogoComponents[index] ? LogoComponents[index] : null} // Handle null case for icons
+            navDisabled={props.navDisabled}
           />
         ))}
       </nav>
