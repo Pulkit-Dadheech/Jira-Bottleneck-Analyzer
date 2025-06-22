@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
-import DashboardContent from './DashboardContent';
+import DashboardContent from './DashboardOverview';
 import 'boxicons/css/boxicons.min.css';
 import '../index.css';
 import { useSidebar } from '../context/SidebarContext';
@@ -37,7 +37,7 @@ const Dashboard = () => {
               () => <i className="bx bx-timer"></i>,
               () => <i className="bx bx-merge"></i>,
               () => <i className="bx bx-user"></i>,
-              () => <i className="bx bx-slash-square"></i>
+              () => < i class='bxr  bx-x-circle'  ></i> 
             ]}
             sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
             navDisabled={navDisabled}

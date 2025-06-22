@@ -32,7 +32,7 @@ const ViolationsPage = () => {
       {/* Hero/Header Section */}
       <div className="flex items-center gap-4 mb-8">
         <div className="bg-pink-900/80 p-4 rounded-full shadow-lg border-2 border-pink-500">
-          <i className="bx bx-slash-square text-4xl text-pink-300"></i>
+          <i className="bx bx-slash-square text-4xl text-pink-300"><span>< i class='bxr bx-x-circle'></i> </span></i>
         </div>
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-pink-200 mb-1 drop-shadow">SLA Violations Analytics</h2>
