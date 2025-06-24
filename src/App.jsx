@@ -27,6 +27,7 @@ function App() {
           <Route path="paths" element={<PathsPage />} />
           <Route path="delays" element={<DelaysPage />} />
           <Route path="violations" element={<ViolationsPage />} />
+          <Route path="recommendations" element={<div>Recommendations Page</div>} />
         </Route>
       </Routes>
     </SidebarProvider>

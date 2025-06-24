@@ -11,6 +11,7 @@ import PathsPage from './PathsPage';
 import DelaysPage from './DelaysPage';
 import ViolationsPage from './ViolationsPage';
 import CsvUpload from './CsvUpload'; // Import the CsvUpload component
+import RecommendationPage from './RecommendationPage';
 
 
 const Dashboard = () => {
@@ -30,16 +31,17 @@ const Dashboard = () => {
         <aside className="hidden md:block w-56 h-full overflow-auto">
           <Sidebar
             titleName="Dashboard"
-            activeSectionList={['overview','cases','steps','paths','delays','violations']}
+            activeSectionList={['overview','cases','steps','paths','delays','violations','recommendations']}
             LogoComponents={[
               () => <i className="bx bx-home-alt-2"></i>,
               () => <i className="bx bx-list-ol"></i>,
               () => <i className="bx bx-timer"></i>,
               () => <i className="bx bx-merge"></i>,
               () => <i className="bx bx-user"></i>,
-              () => < i class='bxr  bx-x-circle'  ></i> 
+              () => < i class='bxr  bx-x-circle'  ></i>,
+              () => <i className="bx bx-recommend"></i>
             ]}
-            sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
+            sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations', 'Recommendations']}
             navDisabled={navDisabled}
           />
         </aside>
@@ -59,6 +61,9 @@ const Dashboard = () => {
           {activeSection === 'paths' && csvUploaded && <PathsPage/>}
           {activeSection === 'delays' && csvUploaded && <DelaysPage/>}
           {activeSection === 'violations' && csvUploaded && <ViolationsPage/>}
+          {activeSection === 'recommendations' && csvUploaded && (
+            <RecommendationPage/>
+          )}
         </div>
       </div>
       {/* Mobile sidebar toggle and drawer remain unchanged */}
@@ -75,16 +80,17 @@ const Dashboard = () => {
             </button>
             <Sidebar
               titleName="Dashboard"
-              activeSectionList={['overview','cases','steps','paths','delays','violations']}
+              activeSectionList={['overview','cases','steps','paths','delays','violations','recommendations']}
               LogoComponents={[
                 () => <i className="bx bx-home-alt-2"></i>,
                 () => <i className="bx bx-list-ol"></i>,
                 () => <i className="bx bx-timer"></i>,
                 () => <i className="bx bx-merge"></i>,
                 () => <i className="bx bx-user"></i>,
-                () => <i className="bx bx-slash-square"></i>
+                () => <i className="bx bx-slash-square"></i>,
+                () => <i className="bx bx-recommend"></i>
               ]}
-              sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations']}
+              sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations','Recommendations']}
               navDisabled={navDisabled}
             />
           </div>
