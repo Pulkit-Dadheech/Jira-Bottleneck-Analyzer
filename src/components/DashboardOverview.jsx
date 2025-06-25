@@ -26,7 +26,7 @@ const DashboardContent = () => {
       {/* Hero Section */}
       <div className="relative rounded-2xl bg-gradient-to-br from-indigo-900/80 via-black/80 to-gray-900/80 p-8 mb-10 flex flex-col md:flex-row items-center gap-6 shadow-xl border border-gray-700">
         <div className="flex-1">
-          <h1 className="text-3xl md:text-4xl font-bold text-indigo-200 mb-2 drop-shadow">Enterprize Bottleneck Analyzer</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-indigo-200 mb-2 drop-shadow">Enterprize Workflow Analyzer</h1>
           <p className="text-lg text-indigo-100 mb-2">Visualize, analyze, and eliminate workflow bottlenecks in your projects.</p>
           <p className="text-sm text-gray-400">Upload your CSV to unlock powerful analytics and actionable insights.</p>
         </div>
