@@ -17,6 +17,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import RecommendationPage from './components/RecommendationPage';
 import PrivateRoute from './components/PrivateRoute';
+import PathTreePage from './components/PathTreePage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -39,6 +40,7 @@ function App() {
             <Route path="steps" element={<StepsPage />} />
             <Route path="paths" element={<PathsPage />} />
             <Route path="delays" element={<DelaysPage />} />
+            <Route path="pathTree" element={<PathTreePage/>}/>
             <Route path="violations" element={<ViolationsPage />} />
             <Route path="recommendations" element={<RecommendationPage />} />
           </Route>

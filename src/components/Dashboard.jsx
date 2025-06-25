@@ -12,6 +12,7 @@ import DelaysPage from './DelaysPage';
 import ViolationsPage from './ViolationsPage';
 import CsvUpload from './CsvUpload';
 import RecommendationPage from './RecommendationPage';
+import PathTreePage from './PathTreePage';
 
 const CSV_KEY = 'uploaded_csv';
 
@@ -49,17 +50,18 @@ const Dashboard = () => {
         <aside className="hidden md:block w-56 h-full overflow-auto">
           <Sidebar
             titleName="Dashboard"
-            activeSectionList={['overview','cases','steps','paths','delays','violations','recommendations']}
+            activeSectionList={['overview','cases','steps','paths','pathTree','delays','violations','recommendations']}
             LogoComponents={[
               () => <i className="bx bx-home-alt-2"></i>,
               () => <i className="bx bx-list-ol"></i>,
               () => <i className="bx bx-timer"></i>,
               () => <i className="bx bx-merge"></i>,
+              () => <i className="bx bx-sitemap"></i>,
               () => <i className="bx bx-user"></i>,
-              () => < i className='bxr  bx-x-circle'  ></i>,
+              () => <i className="bx bx-slash-square"></i>,
               () => <i className="bx bx-recommend"></i>
             ]}
-            sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations', 'Recommendations']}
+            sectionNames={['Overview','Cases','Steps','Paths','Path Tree','Delays','Violations','Recommendations']}
             navDisabled={navDisabled}
           />
         </aside>
@@ -88,6 +90,7 @@ const Dashboard = () => {
           {activeSection === 'cases' && csvUploaded && <CasesPage/>}
           {activeSection === 'steps' && csvUploaded && <StepsPage/>}
           {activeSection === 'paths' && csvUploaded && <PathsPage/>}
+          {activeSection === 'pathTree' && csvUploaded && <PathTreePage/>}
           {activeSection === 'delays' && csvUploaded && <DelaysPage/>}
           {activeSection === 'violations' && csvUploaded && <ViolationsPage/>}
           {activeSection === 'recommendations' && csvUploaded && (
@@ -109,17 +112,18 @@ const Dashboard = () => {
             </button>
             <Sidebar
               titleName="Dashboard"
-              activeSectionList={['overview','cases','steps','paths','delays','violations','recommendations']}
+              activeSectionList={['overview','cases','steps','paths','pathTree','delays','violations','recommendations']}
               LogoComponents={[
                 () => <i className="bx bx-home-alt-2"></i>,
                 () => <i className="bx bx-list-ol"></i>,
                 () => <i className="bx bx-timer"></i>,
                 () => <i className="bx bx-merge"></i>,
+                () => <i className="bx bx-sitemap"></i>,
                 () => <i className="bx bx-user"></i>,
                 () => <i className="bx bx-slash-square"></i>,
                 () => <i className="bx bx-recommend"></i>
               ]}
-              sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations','Recommendations']}
+              sectionNames={['Overview','Cases','Steps','Paths','Path Tree','Delays','Violations','Recommendations']}
               navDisabled={navDisabled}
             />
           </div>
