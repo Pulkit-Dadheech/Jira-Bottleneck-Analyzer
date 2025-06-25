@@ -14,6 +14,7 @@ import CsvUpload from './CsvUpload';
 import RecommendationPage from './RecommendationPage';
 import PathTreePage from './PathTreePage';
 import { useUserData } from '../context/UserDataContext';
+import { useEffect } from 'react';
 
 const CSV_KEY = 'uploaded_csv';
 
@@ -26,7 +27,14 @@ const Dashboard = () => {
   // Only allow navigation if CSV is uploaded
   // If userData exists, CSV is considered uploaded
   const navDisabled = !csvUploaded;
-  const showCsvUpload = !csvUploaded || (error && error.includes('Failed to fetch user data'));
+
+  useEffect(() => {
+    if(!csvUploaded && !loading) {
+      setCsvUploaded(false);
+    }
+  },[error && error.includes('Failed to fetch user data')]);
+
+  
 
   // Handler for uploading another CSV (clears session and triggers upload UI)
   const handleUploadAnotherCsv = async () => {
@@ -72,7 +80,7 @@ const Dashboard = () => {
         {/* Main content area */}
         <div className="flex-1 overflow-auto bg-gray-900 p-5" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
           {/* Only show CSV upload in overview, and only if not uploaded or fetch failed */}
-          {activeSection === 'overview' && showCsvUpload && (
+          {activeSection === 'overview' && !csvUploaded && (
             <div className='flex items-center h-full justify-center'>
               <CsvUpload onUploadSuccess={() => setCsvUploaded(true)} />
             </div>
