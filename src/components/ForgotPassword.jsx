@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ onGoSignIn, modalMode, onGoReset }) => {
   // Initialize EmailJS
   useEffect(() => {
     emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID);
@@ -60,14 +60,15 @@ const ForgotPassword = () => {
     e.preventDefault();
     setError('');
     if (otp === token) {
-      window.location.href = `/reset-password?token=${token}`;
+      // switch to reset password view in modal with token
+      if (onGoReset) onGoReset(token);
     } else {
       setError('Invalid OTP. Please check your email and try again.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center bg-gray-900'}>
       <form onSubmit={showOtp ? handleVerifyOtp : handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-300 mb-6 text-center">Forgot Password</h2>
         {!showOtp ? (
@@ -88,6 +89,13 @@ const ForgotPassword = () => {
             >
               {loading ? 'Sending...' : 'Send Reset Email'}
             </button>
+            <div className="text-center mt-4">
+              {onGoSignIn ? (
+                <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
+              ) : (
+                <a href="/signin" className="text-blue-400 hover:underline">Back to Sign In</a>
+              )}
+            </div>
           </>
         ) : (
           <>
@@ -108,6 +116,13 @@ const ForgotPassword = () => {
             >
               Verify OTP
             </button>
+            <div className="text-center mt-4">
+              {onGoSignIn ? (
+                <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
+              ) : (
+                <a href="/signin" className="text-blue-400 hover:underline">Back to Sign In</a>
+              )}
+            </div>
           </>
         )}
         {sent && !error && !showOtp && (

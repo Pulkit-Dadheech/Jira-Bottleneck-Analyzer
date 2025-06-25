@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuthModal } from '../context/AuthContext';
 import 'boxicons/css/boxicons.min.css'
 
-const Header = () => {
+const Header = ({ onShowAuth }) => {
   const navigate = useNavigate();
+  const { setShowAuthModal } = useAuthModal();
   // Function to toggle the mobile menu
   const toggleMobileMenu = () => {
     const mobileMenu = document.getElementById('mobileMenu');
@@ -29,7 +31,7 @@ const Header = () => {
         {!isLoggedIn ? (
           <button
             className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium hover:bg-white transition'
-            onClick={() => navigate('/signin')}
+            onClick={() => setShowAuthModal(true)}
           >
             <i className='bx bx-log-in'></i> SIGN IN
           </button>
@@ -52,7 +54,7 @@ const Header = () => {
           {!isLoggedIn ? (
             <button
               className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium hover:bg-white transition'
-              onClick={() => { toggleMobileMenu(); navigate('/signin'); }}
+              onClick={() => { toggleMobileMenu(); setShowAuthModal(true); }}
             >
               <i className='bx bx-log-in'></i> SIGN IN
             </button>

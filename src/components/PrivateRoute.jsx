@@ -1,9 +1,20 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuthModal } from '../context/AuthContext';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/signin" replace />;
+  const navigate = useNavigate();
+  const { setShowAuthModal } = useAuthModal();
+
+  useEffect(() => {
+    if (!token) {
+      setShowAuthModal(true);
+      navigate('/', { replace: true });
+    }
+  }, [token, navigate, setShowAuthModal]);
+
+  return token ? children : null;
 };
 
 export default PrivateRoute;

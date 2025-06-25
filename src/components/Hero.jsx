@@ -1,7 +1,9 @@
 import React from 'react'
 import Spline from '@splinetool/react-spline'
+import { useAuthModal } from '../context/AuthContext'
 
 const Hero = () => {
+  const { setShowAuthModal } = useAuthModal();
   return (
     <section className="flex flex-1 flex-col-reverse lg:flex-row items-center justify-between w-full">
       <div className="flex-1 flex items-center justify-start max-w-xl ml-[5%] z-10">
@@ -13,7 +15,10 @@ const Hero = () => {
           <p className='text-lg md:text-xl text-gray-600 mb-6'>
             Discover insights and trends in your data effortlessly with our powerful analysis tools.
           </p>
-          <button className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium border-none transition-all-500 hover:bg-white cursor-pointer'>
+          <button
+            className='bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium border-none transition-all-500 hover:bg-white cursor-pointer'
+            onClick={() => setShowAuthModal(true)}
+          >
             Get Started
           </button>
         </div>

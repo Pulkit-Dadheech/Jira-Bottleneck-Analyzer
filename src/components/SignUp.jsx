@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = ({ onGoSignIn, modalMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -28,7 +28,9 @@ const SignUp = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Signup failed');
       setSuccess(true);
-      navigate('/signin');
+      // After signup, switch to sign-in view in modal, or navigate normally
+      if (onGoSignIn) onGoSignIn();
+      else navigate('/signin');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -37,7 +39,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center bg-gray-900'}>
       <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-300 mb-6 text-center">Sign Up</h2>
         <label className="block text-blue-200 mb-2">Email</label>
@@ -73,6 +75,14 @@ const SignUp = () => {
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
+        <div className="text-center mt-4">
+          <span className="text-gray-400">Already have an account? </span>
+          {onGoSignIn ? (
+            <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Sign In</button>
+          ) : (
+            <a href="/signin" className="text-blue-400 hover:underline">Sign In</a>
+          )}
+        </div>
       </form>
     </div>
   );

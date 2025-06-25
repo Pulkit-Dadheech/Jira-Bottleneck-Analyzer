@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = () => {
+const SignIn = ({ onGoSignUp, onGoForgot, modalMode, onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,6 +22,7 @@ const SignIn = () => {
       if (!res.ok) throw new Error(data.error || 'Signin failed');
       localStorage.setItem('token', data.token);
       navigate('/dashboard'); // redirect to dashboard
+      if (onClose) onClose(); // close modal if in modal mode
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,7 +31,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center bg-gray-900'}>
       <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-blue-300 mb-6 text-center">Sign In</h2>
         <label className="block text-blue-200 mb-2">Email</label>
@@ -58,11 +59,19 @@ const SignIn = () => {
           {loading ? 'Signing in...' : 'Sign In'}
         </button>
         <div className="text-center mt-2">
-          <a href="/forgot-password" className="text-blue-400 hover:underline">Forgot password?</a>
+          {onGoForgot ? (
+            <button type="button" className="text-blue-400 hover:underline" onClick={onGoForgot}>Forgot password?</button>
+          ) : (
+            <a href="/forgot-password" className="text-blue-400 hover:underline">Forgot password?</a>
+          )}
         </div>
         <div className="text-center mt-4">
           <span className="text-gray-400">Don't have an account? </span>
-          <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a>
+          {onGoSignUp ? (
+            <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignUp}>Sign Up</button>
+          ) : (
+            <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a>
+          )}
         </div>
       </form>
     </div>
