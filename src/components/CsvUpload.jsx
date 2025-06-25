@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 
+const CSV_KEY = 'uploaded_csv';
+
 export default function CsvUpload({ onUploadSuccess }) {
   const fileInput = useRef();
   const [loading, setLoading] = useState(false);
@@ -9,6 +11,8 @@ export default function CsvUpload({ onUploadSuccess }) {
     setError('');
     const file = e.target.files[0];
     if (!file) return;
+    // Save CSV file name to sessionStorage (or file content if needed)
+    sessionStorage.setItem(CSV_KEY, file.name);
     const formData = new FormData();
     formData.append('csvfile', file);
     setLoading(true);

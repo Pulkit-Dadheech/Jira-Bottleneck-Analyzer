@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.32.0",
+    "@emailjs/browser": "^4.4.1",
     "@splinetool/react-spline": "^4.0.0",
     "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/vite": "^4.1.10",

@@ -10,17 +10,25 @@ import StepsPage from './StepsPage';
 import PathsPage from './PathsPage';
 import DelaysPage from './DelaysPage';
 import ViolationsPage from './ViolationsPage';
-import CsvUpload from './CsvUpload'; // Import the CsvUpload component
+import CsvUpload from './CsvUpload';
 import RecommendationPage from './RecommendationPage';
 
+const CSV_KEY = 'uploaded_csv';
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { activeSection } = useSidebar('overview');
-  const [csvUploaded, setCsvUploaded] = useState(false);
+  const [csvUploaded, setCsvUploaded] = useState(() => !!sessionStorage.getItem(CSV_KEY));
 
   // Only allow navigation if CSV is uploaded
   const navDisabled = !csvUploaded;
+
+  // Handler for uploading another CSV (clears session and triggers upload UI)
+  const handleUploadAnotherCsv = () => {
+    sessionStorage.removeItem(CSV_KEY);
+    sessionStorage.removeItem('recommendation_response');
+    setCsvUploaded(false);
+  };
 
   return (
     <div className="flex flex-col h-screen text-white overflow-hidden">
@@ -51,6 +59,17 @@ const Dashboard = () => {
           {activeSection === 'overview' && !csvUploaded && (
             <div className='flex items-center h-full justify-center'>
               <CsvUpload onUploadSuccess={() => setCsvUploaded(true)} />
+            </div>
+          )}
+          {/* Show upload another CSV button in overview if already uploaded */}
+          {activeSection === 'overview' && csvUploaded && (
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={handleUploadAnotherCsv}
+                className="inline-flex items-center gap-2 bg-indigo-700 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded shadow transition"
+              >
+                <i className="bx bx-upload"></i> Upload Another CSV
+              </button>
             </div>
           )}
           {/* Only show overview graphs if CSV is uploaded and only in overview */}
