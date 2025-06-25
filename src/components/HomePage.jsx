@@ -1,13 +1,12 @@
 import React from 'react'
 import Header from './Header.jsx'
 import Hero from './Hero.jsx'
-import { useUser } from '@clerk/clerk-react'
 import { Navigate } from 'react-router-dom'
 
 const HomePage = () => {
-  const { isSignedIn, isLoaded } = useUser()
-  // Once Clerk is loaded, redirect signed-in users to dashboard
-  if (isLoaded && isSignedIn) {
+  // Redirect authenticated users to dashboard
+  const token = localStorage.getItem('token')
+  if (token) {
     return <Navigate to="/dashboard" replace />
   }
 

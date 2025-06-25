@@ -17,7 +17,7 @@ const Header = () => {
   const isLoggedIn = !!localStorage.getItem('token');
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    navigate('/signin');
+    navigate('/');
   };
   return (
     <header className='flex justify-between items-center py-4 px-4 lg:px-20 border-b-[0.1px] border-gray-600'>
