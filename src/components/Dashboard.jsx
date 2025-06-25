@@ -13,6 +13,7 @@ import ViolationsPage from './ViolationsPage';
 import CsvUpload from './CsvUpload';
 import RecommendationPage from './RecommendationPage';
 import PathTreePage from './PathTreePage';
+import { useUserData } from '../context/UserDataContext';
 
 const CSV_KEY = 'uploaded_csv';
 
@@ -20,9 +21,12 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { activeSection } = useSidebar('overview');
   const [csvUploaded, setCsvUploaded] = useState(() => !!sessionStorage.getItem(CSV_KEY));
+  const { userData, loading, error } = useUserData();
 
   // Only allow navigation if CSV is uploaded
+  // If userData exists, CSV is considered uploaded
   const navDisabled = !csvUploaded;
+  const showCsvUpload = !csvUploaded || (error && error.includes('Failed to fetch user data'));
 
   // Handler for uploading another CSV (clears session and triggers upload UI)
   const handleUploadAnotherCsv = async () => {
@@ -58,8 +62,8 @@ const Dashboard = () => {
               () => <i className="bx bx-merge"></i>,
               () => <i className="bx bx-sitemap"></i>,
               () => <i className="bx bx-user"></i>,
-              () => <i className="bx bx-slash-square"></i>,
-              () => <i className="bx bx-recommend"></i>
+              () => <i className="bx bx-block"></i>,
+              () => <i className="bx bx-bulb"></i>
             ]}
             sectionNames={['Overview','Cases','Steps','Paths','Path Tree','Delays','Violations','Recommendations']}
             navDisabled={navDisabled}
@@ -67,8 +71,8 @@ const Dashboard = () => {
         </aside>
         {/* Main content area */}
         <div className="flex-1 overflow-auto bg-gray-900 p-5" style={{ maxHeight: 'calc(100vh - 3.5rem)'}} >
-          {/* Only show CSV upload in overview, and only if not uploaded */}
-          {activeSection === 'overview' && !csvUploaded && (
+          {/* Only show CSV upload in overview, and only if not uploaded or fetch failed */}
+          {activeSection === 'overview' && showCsvUpload && (
             <div className='flex items-center h-full justify-center'>
               <CsvUpload onUploadSuccess={() => setCsvUploaded(true)} />
             </div>
