@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { SidebarProvider } from './context/SidebarContext';
+import { UserDataProvider } from './context/UserDataContext';
 import Dashboard from './components/Dashboard';
 import HomePage from './components/HomePage';
 import OverviewPage from './components/OverviewPage';
@@ -22,25 +23,28 @@ function App() {
 
   return (
     <>
-    <SidebarProvider>
-      <Routes>
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/recommendations" element={<RecommendationPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} >
-          <Route index element={<Navigate to="overview" replace />} />
-          <Route path="overview" element={<OverviewPage />} />
-          <Route path="cases" element={<CasesPage />} />
-          <Route path="steps" element={<StepsPage />} />
-          <Route path="paths" element={<PathsPage />} />
-          <Route path="delays" element={<DelaysPage />} />
-          <Route path="violations" element={<ViolationsPage />} />
-        </Route>
-      </Routes>
-    </SidebarProvider>
+    <UserDataProvider>
+      <SidebarProvider>
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/recommendations" element={<RecommendationPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} >
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<OverviewPage />} />
+            <Route path="cases" element={<CasesPage />} />
+            <Route path="steps" element={<StepsPage />} />
+            <Route path="paths" element={<PathsPage />} />
+            <Route path="delays" element={<DelaysPage />} />
+            <Route path="violations" element={<ViolationsPage />} />
+            <Route path="recommendations" element={<RecommendationPage />} />
+          </Route>
+        </Routes>
+      </SidebarProvider>
+    </UserDataProvider>
     </>
   )
 }

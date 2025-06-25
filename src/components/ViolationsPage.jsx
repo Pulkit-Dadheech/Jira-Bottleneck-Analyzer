@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSidebar } from '../context/SidebarContext';
+import { useUserData } from '../context/UserDataContext';
 
 const ViolationsPage = () => {
   useSidebar('violations');
-  const [slaViolations, setSlaViolations] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/sla_violations')
-      .then(res => res.json())
-      .then(data => setSlaViolations(data || []))
-      .catch(console.error);
-  }, []);
+  const { userData, loading, error } = useUserData();
+  if (loading) return <div>Loading violations...</div>;
+  if (error) return <div>Error loading violations: {error}</div>;
+  const slaViolations = userData?.slaViolations || [];
 
   const { totalViolations, mostViolatedActivity, top5Violations } = useMemo(() => {
     if (!slaViolations.length) return { totalViolations: 0, mostViolatedActivity: null, top5Violations: [] };
@@ -32,7 +29,7 @@ const ViolationsPage = () => {
       {/* Hero/Header Section */}
       <div className="flex items-center gap-4 mb-8">
         <div className="bg-pink-900/80 p-4 rounded-full shadow-lg border-2 border-pink-500">
-          <i className="bx bx-slash-square text-4xl text-pink-300"><span>< i class='bxr bx-x-circle'></i> </span></i>
+          <i className="bx bx-slash-square text-4xl text-pink-300"><span><i className='bxr bx-x-circle'></i> </span></i>
         </div>
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-pink-200 mb-1 drop-shadow">SLA Violations Analytics</h2>

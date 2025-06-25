@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useUserData } from '../context/UserDataContext';
+import { useSidebar } from '../context/SidebarContext';
 
 const StepsPage = () => {
-  const [stepData, setStepData] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/step_durations')
-      .then(res => res.json())
-      .then(data => setStepData(data || []))
-      .catch(console.error);
-  }, []);
+  useSidebar('steps');
+  const { userData, loading, error } = useUserData();
+  if (loading) return <div>Loading steps...</div>;
+  if (error) return <div>Error loading steps: {error}</div>;
+  const stepData = userData?.stepDurations || [];
 
   const { totalSteps, avgStepDuration, slowestStep, fastestStep, top5Slowest, top5Fastest } = useMemo(() => {
     if (!stepData.length) return {

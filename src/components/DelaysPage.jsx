@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSidebar } from '../context/SidebarContext';
+import { useUserData } from '../context/UserDataContext';
 
 const DelaysPage = () => {
   useSidebar('delays');
-  const [userDelays, setUserDelays] = useState({ user_stats: [], slowest_user: null });
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/user_delays')
-      .then(res => res.json())
-      .then(data => setUserDelays(data || { user_stats: [], slowest_user: null }))
-      .catch(console.error);
-  }, []);
+  const { userData, loading, error } = useUserData();
+  if (loading) return <div>Loading delays...</div>;
+  if (error) return <div>Error loading delays: {error}</div>;
+  const userDelays = userData?.userDelays || { user_stats: [], slowest_user: null };
 
   const { totalUsers, slowestUser, fastestUser, avgDelay, top5Slowest, top5Fastest } = useMemo(() => {
     if (!userDelays.user_stats.length) return {

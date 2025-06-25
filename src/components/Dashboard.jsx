@@ -24,7 +24,17 @@ const Dashboard = () => {
   const navDisabled = !csvUploaded;
 
   // Handler for uploading another CSV (clears session and triggers upload UI)
-  const handleUploadAnotherCsv = () => {
+  const handleUploadAnotherCsv = async () => {
+    // Delete user data on the server
+    const token = localStorage.getItem('token');
+    try {
+      await fetch('http://localhost:3000/upload/reset', {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    } catch (e) {
+      console.error('Failed to reset server data', e);
+    }
     sessionStorage.removeItem(CSV_KEY);
     sessionStorage.removeItem('recommendation_response');
     setCsvUploaded(false);
@@ -46,7 +56,7 @@ const Dashboard = () => {
               () => <i className="bx bx-timer"></i>,
               () => <i className="bx bx-merge"></i>,
               () => <i className="bx bx-user"></i>,
-              () => < i class='bxr  bx-x-circle'  ></i>,
+              () => < i className='bxr  bx-x-circle'  ></i>,
               () => <i className="bx bx-recommend"></i>
             ]}
             sectionNames={['Overview','Cases','Steps','Paths','Delays','Violations', 'Recommendations']}

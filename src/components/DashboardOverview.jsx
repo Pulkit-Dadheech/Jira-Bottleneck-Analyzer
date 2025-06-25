@@ -1,31 +1,25 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useMemo } from 'react';
+import { useSidebar } from '../context/SidebarContext';
+import { useUserData } from '../context/UserDataContext';
 
 const DashboardContent = () => {
-  const [caseData, setCaseData] = useState([])
-  const [userDelays, setUserDelays] = useState({ user_stats: [], slowest_user: null })
-  const [slaViolations, setSlaViolations] = useState([])
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/case_durations')
-      .then(res => res.json())
-      .then(data => setCaseData(data.cases || []))
-      .catch(console.error)
-    fetch('http://localhost:3000/api/user_delays')
-      .then(res => res.json())
-      .then(data => setUserDelays(data || { user_stats: [], slowest_user: null }))
-      .catch(console.error)
-    fetch('http://localhost:3000/api/sla_violations')
-      .then(res => res.json())
-      .then(data => setSlaViolations(data || []))
-      .catch(console.error)
-  }, [])
-
+  useSidebar('overview');
+  const { userData, loading, error } = useUserData();
+  // Extract raw data for metrics calculation
+  const caseData = userData?.caseDurations?.cases || [];
+  const slaViolations = userData?.slaViolations || [];
+  const userDelaysStats = userData?.userDelays?.user_stats || [];
+  const slowestUserName = userData?.userDelays?.slowest_user?.user || 'N/A';
+  // Memoize metrics unconditionally
   const { totalCases, avgCaseDuration, totalViolations, topSlowUser } = useMemo(() => ({
     totalCases: caseData.length,
     avgCaseDuration: caseData.reduce((sum, c) => sum + (c.total_minutes || 0), 0) / (caseData.length || 1),
     totalViolations: slaViolations.length,
-    topSlowUser: userDelays.slowest_user ? userDelays.slowest_user.user : 'N/A'
-  }), [caseData, slaViolations, userDelays])
+    topSlowUser: slowestUserName
+  }), [caseData, slaViolations, slowestUserName]);
+  // Conditional rendering after hooks
+  if (loading) return <div>Loading overview...</div>;
+  if (error) return <div>Error loading data: {error}</div>;
 
   return (
     <div className="relative mx-auto h-full overflow-x-auto px-2 md:px-8 pb-8">

@@ -1,33 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSidebar } from '../context/SidebarContext';
+import { useUserData } from '../context/UserDataContext';
 
 const RecommendationPage = () => {
-  const [recommendations, setRecommendations] = useState([]);
-  const [insights, setInsights] = useState({ process: [], user: [], activity: [] });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchAll = async () => {
-      setLoading(true);
-      try {
-        const [recRes, insRes] = await Promise.all([
-          fetch('http://localhost:3000/recommendation/recommendations'),
-          fetch('http://localhost:3000/recommendation/insights')
-        ]);
-        if (!recRes.ok) throw new Error('Failed to fetch recommendations');
-        if (!insRes.ok) throw new Error('Failed to fetch insights');
-        const recData = await recRes.json();
-        const insData = await insRes.json();
-        setRecommendations(recData);
-        setInsights(insData);
-      } catch (err) {
-        setError(err.message || 'Failed to fetch data');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAll();
-  }, []);
+  const { userData, loading, error } = useUserData();
+  useSidebar('recommendations');
 
   if (loading) return (
     <div className="flex w-full h-full items-center justify-center bg-opacity-80 ">
@@ -53,11 +30,11 @@ const RecommendationPage = () => {
               <span className="inline-block align-middle"><i className="bx bx-bulb text-blue-400 text-2xl"></i></span>
               Ticket-based Recommendations
             </h2>
-            {recommendations.length === 0 && (
+            { (userData?.recommendations || []).length === 0 && (
               <div className="text-center text-gray-400">No recommendations available.</div>
             )}
             <ul className="space-y-6">
-              {recommendations.map((rec, idx) => (
+              { (userData?.recommendations || []).map((rec, idx) => (
                 <li key={idx} className="bg-gray-900 rounded-xl p-4 border border-blue-800">
                   <div className="text-sm text-blue-400 font-mono mb-1">Ticket: {rec.case_id}</div>
                   <div className="text-lg font-semibold text-blue-100 mb-1">{rec.heuristic_recommendation}</div>
@@ -74,7 +51,7 @@ const RecommendationPage = () => {
               Process-level Insights
             </h2>
             <ul className="list-disc pl-6">
-              {insights.process.map((item, idx) => (
+              { (userData?.insights?.process || []).map((item, idx) => (
                 <li key={idx} className="text-white text-base md:text-lg mb-1">{item}</li>
               ))}
             </ul>
@@ -87,7 +64,7 @@ const RecommendationPage = () => {
               User-level Insights
             </h2>
             <ul className="list-disc pl-6">
-              {insights.user.map((item, idx) => (
+              { (userData?.insights?.user || []).map((item, idx) => (
                 <li key={idx} className="text-white text-base md:text-lg mb-1">{item}</li>
               ))}
             </ul>
@@ -100,7 +77,7 @@ const RecommendationPage = () => {
               Activity-level Insights
             </h2>
             <ul className="list-disc pl-6">
-              {insights.activity.map((item, idx) => (
+              { (userData?.insights?.activity || []).map((item, idx) => (
                 <li key={idx} className="text-white text-base md:text-lg mb-1">{item}</li>
               ))}
             </ul>

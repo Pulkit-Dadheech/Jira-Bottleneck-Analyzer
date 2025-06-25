@@ -11,36 +11,66 @@ function DashboardGraphs() {
   const [slaViolations, setSlaViolations] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/case_durations')
-      .then(res => res.json())
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/api/case_durations', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
       .then(data => setCaseData(data.cases || []))
       .catch(console.error)
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/step_durations')
-      .then(res => res.json())
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/api/step_durations', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
       .then(data => setStepData(data || []))
       .catch(console.error)
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/common_paths')
-      .then(res => res.json())
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/api/common_paths', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
       .then(data => setCommonPaths(data || []))
       .catch(console.error)
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/user_delays')
-      .then(res => res.json())
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/api/user_delays', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
       .then(data => setUserDelays(data || { user_stats: [], slowest_user: null }))
       .catch(console.error)
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/sla_violations')
-      .then(res => res.json())
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/api/sla_violations', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
       .then(data => setSlaViolations(data || []))
       .catch(console.error)
   }, [])

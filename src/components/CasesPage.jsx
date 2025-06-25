@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useUserData } from '../context/UserDataContext';
+import { useSidebar } from '../context/SidebarContext';
 
 const CasesPage = () => {
-  const [caseData, setCaseData] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/case_durations')
-      .then(res => res.json())
-      .then(data => setCaseData(data.cases || []))
-      .catch(console.error);
-  }, []);
+  useSidebar('cases');
+  const { userData, loading, error } = useUserData();
+  if (loading) return <div>Loading cases...</div>;
+  if (error) return <div>Error loading cases: {error}</div>;
+  const caseData = userData?.caseDurations?.cases || [];
 
   const { totalCases, avgCaseDuration, longestCase, shortestCase, top5Longest, top5Shortest } = useMemo(() => {
     if (!caseData.length) return {

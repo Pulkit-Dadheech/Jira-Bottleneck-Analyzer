@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { useUserData } from '../context/UserDataContext';
+import { useSidebar } from '../context/SidebarContext';
 
 const PathsPage = () => {
-  const [paths, setPaths] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/common_paths')
-      .then(res => res.json())
-      .then(data => setPaths(data || []))
-      .catch(console.error);
-  }, []);
+  useSidebar('paths');
+  const { userData, loading, error } = useUserData();
+  if (loading) return <div>Loading paths...</div>;
+  if (error) return <div>Error loading paths: {error}</div>;
+  const paths = userData?.commonPaths || [];
 
   const { totalPaths, topPath, top5Paths } = useMemo(() => {
     if (!paths.length) return { totalPaths: 0, topPath: null, top5Paths: [] };
