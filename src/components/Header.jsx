@@ -19,6 +19,8 @@ const Header = ({ onShowAuth }) => {
   const isLoggedIn = !!localStorage.getItem('token');
   const handleSignOut = () => {
     localStorage.removeItem('token');
+    // Clear userData context
+    window.dispatchEvent(new Event('logout'));
     navigate('/');
   };
   return (

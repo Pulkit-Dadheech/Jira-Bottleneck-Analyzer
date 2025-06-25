@@ -25,7 +25,19 @@ export const UserDataProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  // Initial fetch on mount
   useEffect(() => { fetchData(); }, []);
+  // Listen for login/logout events to refresh or clear data
+  useEffect(() => {
+    const handleLogin = () => { fetchData(); };
+    const handleLogout = () => { setUserData(null); setError(null); setLoading(false); };
+    window.addEventListener('login', handleLogin);
+    window.addEventListener('logout', handleLogout);
+    return () => {
+      window.removeEventListener('login', handleLogin);
+      window.removeEventListener('logout', handleLogout);
+    };
+  }, []);
 
   return (
     <UserDataContext.Provider value={{ userData, loading, error, refresh: fetchData }}>

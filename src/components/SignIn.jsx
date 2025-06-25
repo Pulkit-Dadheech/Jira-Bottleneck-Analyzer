@@ -21,6 +21,7 @@ const SignIn = ({ onGoSignUp, onGoForgot, modalMode, onClose }) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Signin failed');
       localStorage.setItem('token', data.token);
+      window.dispatchEvent(new Event('login')); // dispatch login for refetch
       navigate('/dashboard'); // redirect to dashboard
       if (onClose) onClose(); // close modal if in modal mode
     } catch (err) {
