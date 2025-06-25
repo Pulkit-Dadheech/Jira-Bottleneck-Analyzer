@@ -27,7 +27,7 @@ const Header = ({ onShowAuth }) => {
     <header className='flex justify-between items-center py-4 px-4 lg:px-20 border-b-[0.1px] border-gray-600'>
       <div className="flex items-center gap-2">
         <i className='bx bx-analyse text-2xl'></i>
-        <h1 className='text-2xl md:text-2xl lg:text-3xl font-light m-0'>ANALYZER</h1>
+        <h1 className='text-2xl md:text-2xl lg:text-3xl font-light m-0'>WORKFLOW ANALYZER</h1>
       </div>
       <div className="hidden md:flex items-center gap-4 z-50">
         {!isLoggedIn ? (
