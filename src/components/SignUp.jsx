@@ -39,38 +39,44 @@ const SignUp = ({ onGoSignIn, modalMode }) => {
   };
 
   return (
-    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center bg-gray-900'}>
-      <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-blue-300 mb-6 text-center">Sign Up</h2>
-        <label className="block text-blue-200 mb-2">Email</label>
+    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center'}>
+      <form onSubmit={handleSubmit} className="bg-black p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700">
+        <h2 className="text-3xl font-extrabold text-white mb-8 text-center">Create Your Account</h2>
+        {/* Email */}
+        <label className="block text-gray-300 mb-2">Email Address</label>
         <input
           type="email"
-          className="w-full p-2 rounded bg-gray-700 text-white mb-4"
+          placeholder="you@example.com"
+          className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-500 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
         />
-        <label className="block text-blue-200 mb-2">Password</label>
+        {/* Password */}
+        <label className="block text-gray-300 mb-2">Password</label>
         <input
           type="password"
-          className="w-full p-2 rounded bg-gray-700 text-white mb-4"
+          placeholder="Choose a strong password"
+          className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-500 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <label className="block text-blue-200 mb-2">Confirm Password</label>
+        {/* Confirm Password */}
+        <label className="block text-gray-300 mb-2">Confirm Password</label>
         <input
           type="password"
-          className="w-full p-2 rounded bg-gray-700 text-white mb-4"
+          placeholder="Re-enter your password"
+          className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-500 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={confirm}
           onChange={e => setConfirm(e.target.value)}
           required
         />
-        {error && <div className="text-red-400 mb-2">{error}</div>}
-        {success && <div className="text-green-400 mb-2">Account created! You can now sign in.</div>}
+        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
+        {success && <div className="text-green-400 mb-4 text-center">Account created successfully!</div>}
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition mb-4 disabled:opacity-50"
           disabled={loading}
         >
           {loading ? 'Signing up...' : 'Sign Up'}
@@ -78,9 +84,9 @@ const SignUp = ({ onGoSignIn, modalMode }) => {
         <div className="text-center mt-4">
           <span className="text-gray-400">Already have an account? </span>
           {onGoSignIn ? (
-            <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Sign In</button>
+            <button type="button" className="text-indigo-400 hover:underline" onClick={onGoSignIn}>Sign In</button>
           ) : (
-            <a href="/signin" className="text-blue-400 hover:underline">Sign In</a>
+            <a href="#" className="text-indigo-400 hover:underline">Sign In</a>
           )}
         </div>
       </form>

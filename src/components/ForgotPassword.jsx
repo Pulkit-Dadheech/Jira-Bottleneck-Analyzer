@@ -68,65 +68,65 @@ const ForgotPassword = ({ onGoSignIn, modalMode, onGoReset }) => {
   };
 
   return (
-    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-center bg-gray-900'}>
-      <form onSubmit={showOtp ? handleVerifyOtp : handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-blue-300 mb-6 text-center">Forgot Password</h2>
+    <div className={modalMode ? '' : 'min-h-screen flex items-center justify-centent'}>
+      <form onSubmit={showOtp ? handleVerifyOtp : handleSubmit} className="bg-black p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700">
+        <h2 className="text-3xl font-extrabold text-white mb-8 text-center">Forgot Password</h2>
         {!showOtp ? (
           <>
-            <label className="block text-blue-200 mb-2">Email</label>
+            <label className="block text-gray-300 mb-2">Email Address</label>
             <input
               type="email"
-              className="w-full p-2 rounded bg-gray-700 text-white mb-4"
+              className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-500 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
             />
-            {error && <div className="text-red-400 mb-2">{error}</div>}
+            {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition mb-4 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? 'Sending...' : 'Send Reset Email'}
             </button>
-            <div className="text-center mt-4">
+            <div className="text-center mt-2">
               {onGoSignIn ? (
-                <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
+                <button type="button" className="text-indigo-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
               ) : (
-                <a href="/signin" className="text-blue-400 hover:underline">Back to Sign In</a>
+                <a href="/signin" className="text-indigo-400 hover:underline">Back to Sign In</a>
               )}
             </div>
           </>
         ) : (
           <>
-            <div className="mb-4 text-green-400">Enter the OTP sent to your email</div>
-            <label className="block text-blue-200 mb-2">OTP</label>
+            <div className="mb-4 text-green-400 text-center">Enter the OTP sent to your email</div>
+            <label className="block text-gray-300 mb-2">OTP</label>
             <input
               type="text"
-              className="w-full p-2 rounded bg-gray-700 text-white mb-4"
+              className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-500 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={otp}
               onChange={e => setOtp(e.target.value)}
               required
             />
-            {error && <div className="text-red-400 mb-2">{error}</div>}
+            {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition mb-4 disabled:opacity-50"
               disabled={loading}
             >
               Verify OTP
             </button>
-            <div className="text-center mt-4">
+            <div className="text-center mt-2">
               {onGoSignIn ? (
-                <button type="button" className="text-blue-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
+                <button type="button" className="text-indigo-400 hover:underline" onClick={onGoSignIn}>Back to Sign In</button>
               ) : (
-                <a href="/signin" className="text-blue-400 hover:underline">Back to Sign In</a>
+                <a href="/signin" className="text-indigo-400 hover:underline">Back to Sign In</a>
               )}
             </div>
           </>
         )}
         {sent && !error && !showOtp && (
-          <div className="text-green-400 mt-4">Reset email sent! Check your inbox.</div>
+          <div className="text-green-400 mt-4 text-center">Reset email sent! Check your inbox.</div>
         )}
       </form>
     </div>

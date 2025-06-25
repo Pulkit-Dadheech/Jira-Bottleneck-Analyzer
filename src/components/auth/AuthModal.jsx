@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import ForgotPassword from '../ForgotPassword';
@@ -27,16 +27,6 @@ const AuthModal = ({ onClose }) => {
     content = <ResetPassword onGoSignIn={goToSignIn} modalMode token={resetToken} onClose={onClose} />;
   }
 
-  // Trigger login/logout events
-  useEffect(() => {
-    return () => {
-      // Emit logout event when closing modal on signout
-      if (!localStorage.getItem('token')) {
-        window.dispatchEvent(new Event('logout'));
-      }
-    };
-  }, []);
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div className="relative w-full max-w-md mx-auto">
@@ -46,7 +36,7 @@ const AuthModal = ({ onClose }) => {
         >
           <i className="bx bx-x"></i>
         </button>
-        <div className="bg-gray-900 rounded-2xl shadow-2xl p-6 animate-fadeIn">
+        <div className="bg-gray-900 rounded-2xl shadow-2xl p-3 animate-fadeIn">
           {content}
         </div>
       </div>
